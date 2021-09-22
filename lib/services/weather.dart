@@ -45,14 +45,19 @@ class WeatherModel {
   }
 
   String getMessage(int temp) {
-    if (temp > 25) {
-      return 'It\'s 🍦 time';
-    } else if (temp > 20) {
-      return 'Time for shorts and 👕';
-    } else if (temp < 10) {
-      return 'You\'ll need 🧣 and 🧤';
+    if (temp >= 25) {
+      return 'тепло и кайфово на столько что можно и 🍦 скушать=)';
+      // return 'It\'s 🍦 time';
+    } else if (temp >= 20) {
+      return 'не то что бы очень жарко но можно одеть шорты и 👕';
+      // return 'Time for shorts and 👕';
+    } else if (temp <= 0) {
+      return 'холодина нереальная, лучше не выходи, если нужно выйти одень шубу';
+    } else if (temp <= 10) {
+      return 'охренеть как холодно и мерзко нужен 🧣 и 🧤';
+      // return 'You\'ll need 🧣 and 🧤';
     } else {
-      return 'Bring a 🧥 just in case';
+      return 'возьми пальто на всякий случай';
     }
   }
 }

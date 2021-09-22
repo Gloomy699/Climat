@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
 
-
 class CityScreen extends StatefulWidget {
   @override
   _CityScreenState createState() => _CityScreenState();
@@ -43,7 +42,7 @@ class _CityScreenState extends State<CityScreen> {
                   style: TextStyle(
                     color: Colors.black,
                   ),
-                  decoration: kTextFieldInputDecorstion,
+                  decoration: textFieldInputDecorstion,
                   onChanged: (value) {
                     cityName = value;
                   },
@@ -55,7 +54,7 @@ class _CityScreenState extends State<CityScreen> {
                 },
                 child: Text(
                   'Get Weather',
-                  style: kButtonTextStyle,
+                  style: buttonTextStyle,
                 ),
               ),
             ],
