@@ -15,12 +15,12 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  WeatherModel weather = WeatherModel();
+  WeatherModel _weather = WeatherModel();
 
-  int temperature;
-  String weatherDescription;
-  String weatherIcon;
-  String cityName;
+  int _temperature;
+  String _weatherDescription;
+  String _weatherIcon;
+  String _cityName;
 
   @override
   void initState() {
@@ -29,24 +29,24 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUi(widget.locationWeather);
   }
 
-  void updateUi(dynamic weatherData) {
+  void updateUi(dynamic _weatherData) {
     setState(() {
-      if (weatherData == null) {
-        temperature = 0;
-        weatherIcon = 'Error';
-        weatherDescription = 'no data';
-        cityName = '';
+      if (_weatherData == null) {
+        _temperature = 0;
+        _weatherIcon = 'Error';
+        _weatherDescription = 'no data';
+        _cityName = '';
         return;
       }
-      double temp = weatherData['main']['temp'];
-      temperature = temp.toInt();
-      weatherDescription = temperature.toString();
-      weatherDescription = weather.getMessage(temperature);
+      double _temp = _weatherData['main']['temp'];
+      _temperature = _temp.toInt();
+      _weatherDescription = _temperature.toString();
+      _weatherDescription = _weather.getMessage(_temperature);
 
-      cityName = weatherData['name'];
+      _cityName = _weatherData['name'];
 
-      var condition = weatherData['weather'][0]['id'];
-      weatherIcon = weather.getWeatherIcon(condition);
+      var condition = _weatherData['weather'][0]['id'];
+      _weatherIcon = _weather.getWeatherIcon(condition);
     });
   }
 
@@ -56,7 +56,9 @@ class _LocationScreenState extends State<LocationScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/location_background.jpg'),
+            image: AssetImage(
+              'assets/images/location_background.jpg',
+            ),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Colors.white.withOpacity(0.8),
@@ -75,7 +77,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   TextButton(
                     onPressed: () async {
-                      var weatherData = await weather.getLocationWeather();
+                      var weatherData = await _weather.locationWeather;
                       updateUi(weatherData);
                     },
                     child: Icon(
@@ -96,7 +98,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       );
                       if (typedName != null) {
                         var wetherData =
-                            await weather.getCityWeather(typedName);
+                            await _weather.getCityWeather(typedName);
                         updateUi(wetherData);
                       }
                     },
@@ -113,11 +115,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '$temperature°',
+                      '$_temperature°',
                       style: tempTextStyle,
                     ),
                     Text(
-                      weatherIcon,
+                      _weatherIcon,
                       style: conditionTextStyle,
                     ),
                   ],
@@ -126,7 +128,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'в городе $cityName $weatherDescription',
+                  'в городе $_cityName $_weatherDescription',
                   textAlign: TextAlign.left,
                   style: messageTextStyle,
                 ),
@@ -138,10 +140,3 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
-
-
-
-// var cityName = jsonDecode(data)['name'];
-// var weatherDescription = jsonDecode(data)['weather'][0]['description'];
-// var temp = jsonDecode(data)['main']['temp'];
-// var condition = jsonDecode(data)['weather'][0]['id'];

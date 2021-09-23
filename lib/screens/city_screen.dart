@@ -7,7 +7,7 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
-  String cityName;
+  String _cityName;
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,13 @@ class _CityScreenState extends State<CityScreen> {
                   ),
                   decoration: textFieldInputDecorstion,
                   onChanged: (value) {
-                    cityName = value;
+                    _cityName = value;
                   },
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context, cityName);
+                  Navigator.pop(context, _cityName);
                 },
                 child: Text(
                   'Get Weather',
