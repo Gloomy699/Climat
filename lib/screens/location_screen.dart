@@ -15,7 +15,7 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  WeatherModel _weather = WeatherModel();
+  final _weather = WeatherModel();
 
   int _temperature;
   String _weatherDescription;
@@ -26,26 +26,26 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
 
-    updateUi(widget.locationWeather);
+    _updateUi(widget.locationWeather);
   }
 
-  void updateUi(dynamic _weatherData) {
+  void _updateUi(dynamic weatherData) {
     setState(() {
-      if (_weatherData == null) {
+      if (weatherData == null) {
         _temperature = 0;
         _weatherIcon = 'Error';
         _weatherDescription = 'no data';
         _cityName = '';
         return;
       }
-      double _temp = _weatherData['main']['temp'];
+      final _temp = weatherData['main']['temp'];
       _temperature = _temp.toInt();
       _weatherDescription = _temperature.toString();
       _weatherDescription = _weather.getMessage(_temperature);
 
-      _cityName = _weatherData['name'];
+      _cityName = weatherData['name'];
 
-      var condition = _weatherData['weather'][0]['id'];
+      final condition = weatherData['weather'][0]['id'];
       _weatherIcon = _weather.getWeatherIcon(condition);
     });
   }
@@ -76,10 +76,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () async {
-                      var weatherData = await _weather.locationWeather;
-                      updateUi(weatherData);
-                    },
+                    onPressed: () async => _updateUi(
+                      await _weather.locationWeather,
+                    ),
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
@@ -88,18 +87,14 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                   TextButton(
                     onPressed: () async {
-                      var typedName = await Navigator.push(
+                      final typedName = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) {
-                            return CityScreen();
-                          },
+                          builder: (_) => CityScreen(),
                         ),
                       );
                       if (typedName != null) {
-                        var wetherData =
-                            await _weather.getCityWeather(typedName);
-                        updateUi(wetherData);
+                        _updateUi(await _weather.getCityWeather(typedName));
                       }
                     },
                     child: Icon(

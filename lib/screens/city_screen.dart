@@ -19,16 +19,14 @@ class _CityScreenState extends State<CityScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        constraints: BoxConstraints.expand(),
+        // constraints: BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             children: <Widget>[
               Align(
                 alignment: Alignment.topLeft,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: () => Navigator.pop(context),
                   child: Icon(
                     Icons.arrow_back_ios,
                     size: 50.0,
@@ -43,15 +41,11 @@ class _CityScreenState extends State<CityScreen> {
                     color: Colors.black,
                   ),
                   decoration: textFieldInputDecorstion,
-                  onChanged: (value) {
-                    _cityName = value;
-                  },
+                  onChanged: (value) => _cityName = value,
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pop(context, _cityName);
-                },
+                onPressed: () => Navigator.pop(context, _cityName),
                 child: Text(
                   'Get Weather',
                   style: buttonTextStyle,
